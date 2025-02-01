@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import ecommerceImage from '../assets/default-image.jpg'; 
+import taskManagementImage from '../assets/default-image.jpg';
+import weatherAppImage from '../assets/default-image.jpg';
+import ProjectCarousel from './ProjectCarousel';
+
+const projects = [
+	{
+		id: 1,
+		title: 'E-commerce Platform',
+		description: 'A full-featured e-commerce platform built with React and Node.js.',
+		imageUrl: ecommerceImage.src,
+		imageAlt: 'E-commerce Platform Screenshot',
+	},
+	{
+		id: 2,
+		title: 'Task Management App',
+		description: 'A collaborative task management application using Vue.js and Firebase.',
+		imageUrl: taskManagementImage.src,
+		imageAlt: 'Task Management App Screenshot',
+	},
+	{
+		id: 3,
+		title: 'Weather Forecast App',
+		description: 'A weather forecast application using React Native and OpenWeatherMap API.',
+		imageUrl: weatherAppImage.src,
+		imageAlt: 'Weather Forecast App Screenshot',
+	},
+	{
+		id: 4,
+		title: 'Social Media Dashboard',
+		description: 'A responsive dashboard for managing multiple social media accounts.',
+		imageUrl: ecommerceImage.src,
+		imageAlt: 'Social Media Dashboard Screenshot',
+	},
+	{
+		id: 5,
+		title: 'Fitness Tracking App',
+		description: 'A mobile app for tracking workouts and monitoring fitness progress.',
+		imageUrl: ecommerceImage.src,
+		imageAlt: 'Fitness Tracking App Screenshot',
+	},
+	{
+		id: 6,
+		title: 'Recipe Sharing Platform',
+		description: 'A community-driven platform for sharing and discovering recipes.',
+		imageUrl: ecommerceImage.src,
+		imageAlt: 'Recipe Sharing Platform Screenshot',
+	},
+];
+---
+
+<section id="projects" class="mb-8">
+	<h2 class="text-2xl font-bold mb-4">Featured Projects</h2>
+	<ProjectCarousel client:load projects={projects} />
+</section>
+

@@ -1,11 +1,30 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Profile from '../components/Profile';
+import SkillsExperience from '../components/SkillsExperience.astro';
+import Education from '../components/Education.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import Resume from '../components/Resume.astro';
+import Contact from '../components/Contact.astro';
+import Modal from '../components/Modal.astro';
+import WorkExperience from '../components/WorkExperience.astro';
+import { useAstroI18next } from '../i18n/i18n';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const { t } = useAstroI18next();
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={t('yourName') + " - " + t('portfolio')}>
+  <Profile client:load />
+  <SkillsExperience />
+  <Education />
+  <FeaturedProjects />
+  <Resume />
+  <Contact />
+  <Modal id="work-modal" title={t('workExperience').toString()}>
+    <WorkExperience />
+  </Modal>
+  <Modal id="education-modal" title={t('educationAndCertifications').toString()}>
+    <!-- Add more detailed content about education and certifications here -->
+  </Modal>
 </Layout>
+

@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import profilePicture from '../assets/profile-picture.jpeg';
+import { useAstroI18next } from '../i18n/i18n';
+
+const { t } = useAstroI18next();
+---
+
+<section class="mb-8">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center">
+    <Image
+      src={profilePicture || "/placeholder.svg"}
+      alt={t('yourName').toString()}
+      width={150}
+      height={150}
+      class="rounded-full mb-4 md:mb-0 md:mr-6 w-32 h-32 md:w-48 md:h-48 object-cover"
+    />
+    <div>
+      <h1 class="text-3xl font-bold mb-2">{t('yourName')}</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{t('jobTitle')}</p>
+      <p class="text-gray-700 dark:text-gray-300">
+        {t('profileDescription')}
+      </p>
+    </div>
+  </div>
+</section>
+

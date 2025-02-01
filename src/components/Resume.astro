@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section id="resume" class="mb-8">
+	<h2 class="text-2xl font-bold mb-4">Resume</h2>
+	<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex items-center justify-between">
+		<div>
+			<p class="text-lg mb-2">Download my full resume to learn more about my experience and skills.</p>
+			<p class="text-gray-600 dark:text-gray-400">Last updated: May 2023</p>
+		</div>
+		<a
+			href="/resume.pdf"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+		>
+			<Icon name="mdi:download" class="w-5 h-5 mr-2" />
+			Download CV
+		</a>
+	</div>
+</section>
+

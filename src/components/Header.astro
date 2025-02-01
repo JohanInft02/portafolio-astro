@@ -1,0 +1,84 @@
+---
+import { Icon } from 'astro-icon/components';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useAstroI18next } from '../i18n/i18n';
+
+const { t } = useAstroI18next();
+
+const navItems = [
+  { href: "/#skills", label: t("skills"), icon: "mdi:tools" },
+  { href: "/#education", label: t("education"), icon: "mdi:school" },
+  { href: "/#projects", label: t("projects"), icon: "mdi:briefcase" },
+  { href: "/#resume", label: t("resume"), icon: "mdi:file-document" },
+  { href: "/#contact", label: t("contact"), icon: "mdi:email" },
+];
+---
+
+<header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold">{t('portfolio')}</a>
+      
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex space-x-4">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class="hover:text-blue-500">{t(item.label)}</a>
+          </li>
+        ))}
+      </ul>
+      
+      <div class="flex items-center space-x-4">
+        <LanguageSwitcher client:load />
+        <button id="theme-toggle" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 flex items-center justify-center transition-colors duration-200">
+          <Icon name="tabler:sun" class="w-6 h-6 dark:hidden" />
+          <Icon name="tabler:moon" class="w-6 h-6 hidden dark:block" />
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Menu -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-10">
+  <ul class="flex justify-around items-center h-16">
+    {navItems.map((item) => (
+      <li>
+        <a href={item.href} class="flex flex-col items-center text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+          <Icon name={item.icon} class="w-6 h-6" />
+          <span class="text-xs mt-1">{t(item.label)}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+  const htmlElement = document.documentElement;
+
+  function setTheme(theme: 'light' | 'dark') {
+    if (theme === 'dark') {
+      htmlElement.classList.add('dark');
+    } else {
+      htmlElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const isDark = htmlElement.classList.contains('dark');
+    setTheme(isDark ? 'light' : 'dark');
+  });
+
+  // Check for saved theme preference or use user's system preference
+  const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+  const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (systemDarkMode) {
+    setTheme('dark');
+  }
+</script>
+

@@ -1,0 +1,114 @@
+---
+import { Icon } from 'astro-icon/components';
+import CertificateModal from './CertificateModal';
+
+const education = [
+	{
+		degree: 'Master of Science in Computer Science',
+		school: 'Tech University',
+		year: '2017',
+		status: 'completed',
+		certificateUrl: 'https://udemy-certificate.s3.amazonaws.com/image/UC-b13a3fb2-f0bf-4105-8431-f21d23f5ed92.jpg?v=1715619564000'
+	},
+	{
+		degree: 'Bachelor of Science in Software Engineering',
+		school: 'State University',
+		year: '2015',
+		status: 'completed',
+		certificateUrl: '/certificates/bachelors_degree.jpg'
+	},
+	{
+		degree: 'PhD in Artificial Intelligence',
+		school: 'Future Tech Institute',
+		year: 'Expected 2024',
+		status: 'in-progress'
+	}
+];
+
+const certifications = [
+	{
+		name: 'AWS Certified Solutions Architect',
+		issuer: 'Amazon Web Services',
+		year: '2022',
+		certificateUrl: '/certificates/aws_certification.jpg'
+	},
+	{
+		name: 'Google Cloud Professional Developer',
+		issuer: 'Google',
+		year: '2021',
+		certificateUrl: '/certificates/google_cloud_certification.jpg'
+	},
+];
+---
+
+<section id="education" class="mb-8">
+	<h2 class="text-2xl font-bold mb-4">Education & Certifications</h2>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+			<h3 class="text-xl font-semibold mb-4">Education</h3>
+			{education.map((edu) => (
+				<div class="mb-4 last:mb-0 flex items-start">
+					<div class="mr-2 mt-1">
+						{edu.status === 'completed' ? (
+							<Icon name="mdi:check-circle" class="w-5 h-5 text-green-500" />
+						) : (
+							<Icon name="mdi:progress-clock" class="w-5 h-5 text-yellow-500" />
+						)}
+					</div>
+					<div>
+						<h4 class="text-lg font-medium">{edu.degree}</h4>
+						<p class="text-gray-600 dark:text-gray-400">{edu.school}</p>
+						<p class="text-gray-700 dark:text-gray-300">{edu.year}</p>
+						{edu.certificateUrl && (
+							<button
+								class="mt-2 text-blue-500 hover:text-blue-600 flex items-center"
+								data-certificate-url={edu.certificateUrl}
+							>
+								<Icon name="mdi:certificate" class="w-5 h-5 mr-1" />
+								View Diploma
+							</button>
+						)}
+					</div>
+				</div>
+			))}
+		</div>
+		<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+			<h3 class="text-xl font-semibold mb-4">Certifications</h3>
+			{certifications.map((cert) => (
+				<div class="mb-4 last:mb-0 flex items-start">
+					<div class="mr-2 mt-1">
+						<Icon name="mdi:medal" class="w-5 h-5 text-yellow-500" />
+					</div>
+					<div>
+						<h4 class="text-lg font-medium">{cert.name}</h4>
+						<p class="text-gray-600 dark:text-gray-400">{cert.issuer}</p>
+						<p class="text-gray-700 dark:text-gray-300">{cert.year}</p>
+						<button
+							class="mt-2 text-blue-500 hover:text-blue-600 flex items-center"
+							data-certificate-url={cert.certificateUrl}
+						>
+							<Icon name="mdi:certificate" class="w-5 h-5 mr-1" />
+							View Certificate
+						</button>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<CertificateModal client:load />
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const buttons = document.querySelectorAll('[data-certificate-url]');
+		buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				const certificateUrl = button.getAttribute('data-certificate-url');
+				const event = new CustomEvent('openCertificateModal', { detail: { certificateUrl } });
+				document.dispatchEvent(event);
+			});
+		});
+	});
+</script>
+

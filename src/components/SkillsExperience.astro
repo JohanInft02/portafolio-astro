@@ -1,0 +1,72 @@
+---
+import InfiniteCarousel from './InfiniteCarousel';
+
+const skills = [
+	{ name: 'JavaScript', icon: 'logos:javascript' },
+	{ name: 'TypeScript', icon: 'logos:typescript-icon' },
+	{ name: 'React', icon: 'logos:react' },
+	{ name: 'Angular', icon: 'logos:angular-icon' },
+	{ name: 'Node.js', icon: 'logos:nodejs-icon' },
+	{ name: 'Java', icon: 'logos:java' },
+	{ name: 'SpringBoot', icon: 'logos:spring' },
+	{ name: 'Python', icon: 'logos:python' },
+	{ name: 'FastApi', icon: 'logos:fastapi' },
+	{ name: 'Pandas', icon: 'logos:panda' },
+	{ name: 'MySQL', icon: 'logos:mysql' },
+	{ name: 'OracleDB', icon: 'logos:oracle' },
+	{ name: 'Power Bi', icon: 'logos:microsoft-power-bi' },
+	{ name: 'Docker', icon: 'logos:docker-icon' },
+	{ name: 'AWS', icon: 'logos:aws' },
+	{ name: 'Ionic', icon: 'logos:ionic-icon' },
+	{ name: 'Jira', icon: 'logos:jira' }
+];
+
+const experiences = [
+	{
+		title: 'Programador Full Stack',
+		company: 'Banco General S.A',
+		period: '2022 - Present',
+		description: 'Desarrolló y mantengo múltiples proyectos tanto interno como externo utilizando diversas tecnologías web y movil.',
+	},
+	{
+		title: 'Consultor Tecnologia',
+		company: 'Transiciones S.A',
+		period: '2019 - 2024',
+		description: 'Programador y Administrador de bases de datos, encargado de definir la estructura del guardado de la data de la organizacion y la visualizacion de esta',
+	},
+];
+---
+
+<section id="skills" class="mb-8">
+	<h2 class="text-2xl font-bold mb-4">Skills & Experience</h2>
+	<div class="mb-6">
+		<InfiniteCarousel client:load skills={skills} />
+	</div>
+	<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+		<h3 id="work" class="text-xl font-semibold mb-4">Experiencia de Trabajo</h3>
+		{experiences.map((exp) => (
+			<div class="mb-4 last:mb-0">
+				<h4 class="text-lg font-medium">{exp.title}</h4>
+				<p class="text-gray-600 dark:text-gray-400">{exp.company} | {exp.period}</p>
+				<p class="text-gray-700 dark:text-gray-300 mt-2">{exp.description}</p>
+			</div>
+		))}
+		<div class="mt-4 text-center">
+			<button
+				id="view-work-experience"
+				class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+			>
+				Ver más
+			</button>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { openModal } from '../utils/modal';
+
+	document.getElementById('view-work-experience').addEventListener('click', () => {
+		openModal('work-modal');
+	});
+</script>
+
